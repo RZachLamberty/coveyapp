@@ -1,0 +1,17 @@
+/* jumbotron styling */
+body {
+    padding-top: 50px;
+}
+
+/*a.navbar-brand, a.navbar-brand.active {
+    color: rgb(130, 220, 247);
+}*/
+
+.jumbotron {
+    background-color: #2e6da4;
+    color: rgb(255, 255, 255);
+}
+
+.row.extra-bottom-padding {
+    margin-bottom: 5%;
+}

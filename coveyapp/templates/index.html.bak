@@ -1,0 +1,53 @@
+{# _myapp/templates/index.html_ #}
+
+{% extends "layout.html" %}
+{% block title %}Ask Eywa{% endblock %}
+{% block content %}
+{{ super() }}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Ask Eywa</h1>
+    {% if current_user.is_authenticated %}
+    <p>Enter your string below to determine whether or not it's about <em>AVATAR</em></p>
+    <form action="{{ url_for('.index') }}" method=post>
+      <div class="form-group row">
+        <textarea class="form-control" id="textString" placeholder="your avatar string" name=s></textarea>
+      </div>
+      <div class="form-group row">
+        <button type="submit" class="btn btn-primary">Do it to it!</button>
+      </div>
+    </form>
+    {% endif %}
+  </div>
+</div>
+<div class="container">
+  <div class=summary>
+    {% if s is not none %}
+    <div class="row" id="stringscore">
+      <div class="col-md-8" id="wordcloud">
+        {{ wordcloud | safe }}
+      </div>
+      <div class="col-md-4">
+        <ul>
+          <li>
+            <span style="font-size: {{ 1 + 2 * avatar }}em">
+              {{ '{:06.2%}'.format(avatar) }} avatar
+            </span>
+          </li>
+          <li>
+            <span style="font-size: {{ 1 + 2 * random }}em">
+              {{ '{:06.2%}'.format(random) }} not avatar
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" id="wordchartrow">
+      {# plotly assumes an x and y variable are defined #}
+      {# I have used the variable names 'avdata' and 'randdata' #}
+      {% include "plotly.wordchart.html" ignore missing %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

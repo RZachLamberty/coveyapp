@@ -1,0 +1,15 @@
+<div class="loginwrapper">
+    <h2>Log in</h2>
+    <form id="login" class="form-horizontal" action="{{ url_for('main.login') }}" method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.nickname(class="form-control horizontal-control") }}
+        {{ form.password(class="form-control horizontal-control") }}
+        <div class="checkbox">
+            <label>
+                {{ form.rememberMe() }} Remember Me
+            </label>
+        </div>
+        <button type="submit" class="btn btn-success horizontal-control" name="submit-type" value="signin">Sign In</button>
+        <button type="submit" class="btn btn-default horizontal-control" name="submit-type" value="register">Register</button>
+    </form>
+</div>

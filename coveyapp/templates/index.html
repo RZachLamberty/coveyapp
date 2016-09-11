@@ -1,0 +1,38 @@
+{# _myapp/templates/index.html_ #}
+
+{% extends "layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Quadratron 9001{% endblock %}
+{% block content %}
+{{ super() }}
+<div class="jumbotron jumbotron-primary">
+    <div class="container">
+        <h1>Quadratron 9001</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row extra-bottom-padding">
+        {% if current_user and current_user.is_authenticated %}
+            <div class="col-xs-8">{% include 'quadrants.html' %}</div>
+            <div class="col-xs-4">
+                <div class="newtaskwrapper">
+                    <h2>Create a new task</h2>
+                    {{ wtf.quick_form(newtaskform, action=url_for('.index'), button_map={'submit': 'primary'}) }}
+                </div>
+            </div>
+        {% else %}
+            <div class="col-xs-12">
+                {% if session.loginerror %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error: </span>{{ session.loginerror}}
+                </div>
+                {% endif %}
+                {{ wtf.quick_form(loginform, action=url_for('main.login'), button_map={'signin': 'success'}) }}
+            </div>
+        {% endif %}
+    </div>
+    </div>
+</div>
+{% endblock %}
