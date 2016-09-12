@@ -17,9 +17,9 @@ Usage:
 import eri.logging as logging
 
 from flask_wtf import Form
-from wtforms import BooleanField, PasswordField, StringField, SubmitField
+from wtforms import BooleanField, IntegerField, PasswordField, StringField, SubmitField
 from wtforms.fields.html5 import DateField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, Optional
 
 
 # ----------------------------- #
@@ -44,8 +44,18 @@ class LoginForm(Form):
 
 class NewTaskForm(Form):
     title = StringField('Title', validators=[DataRequired(), Length(max=128)])
-    deadline = DateField('Deadline', format='%Y-%m-%d')
+    deadline = DateField('Deadline', format='%Y-%m-%d', validators=[Optional()])
     notes = StringField('Notes', validators=[Length(max=1024)])
     important = BooleanField('Important', default=False)
     urgent = BooleanField('Urgent', default=False)
     submit = SubmitField('Do it to it!')
+
+
+class UpdateTaskForm(Form):
+    id = IntegerField('id', validators=[DataRequired()])
+    deadline = DateField('Deadline', format='%Y-%m-%d', validators=[Optional()])
+    notes = StringField('Notes', validators=[Length(max=1024)])
+    important = BooleanField('Important', default=False)
+    urgent = BooleanField('Urgent', default=False)
+    submit = SubmitField('Update task')
+    closed = SubmitField('Close')

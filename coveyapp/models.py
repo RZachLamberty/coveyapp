@@ -143,6 +143,7 @@ class Task(db.Model):
     important = db.Column(db.Boolean, default=False)
     urgent = db.Column(db.Boolean, default=False)
     userid = db.Column(db.Integer, db.ForeignKey('users.id'))
+    closed = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return '<Task "{}">'.format(self.title)

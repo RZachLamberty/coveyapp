@@ -1,0 +1,42 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% macro taskpanel(task, form) -%}
+    <div class="panel panel-default task">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ task.title }}</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form" method="post" action="{{ url_for('main.update_task') }}" role="form">
+                {{ form.hidden_tag() }}
+                <input type='hidden' id="{{ form.id.id }}" name="{{ form.id.name }}" value="{{ task.id }}">
+                <div class="form-group">
+                    {{ form.deadline.label }}
+                    {% if task.deadline %}
+                    {{ form.deadline(class='form-control', value=task.deadline.strftime('%Y-%m-%d')) }}
+                    {% else %}
+                    {{ form.deadline(class='form-control') }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.notes.label }}
+                    {{ form.notes(class='form-control', value=task.notes) }}
+                </div>
+                <div class="form-group checkbox">
+                    <label>
+                        {{ form.important(checked=task.important) }} {{ form.important.label.text}}
+                    </label>
+                </div>
+                <div class="form-group checkbox">
+                    <label>
+                        {{ form.urgent(checked=task.urgent) }} {{ form.urgent.label.text}}
+                    </label>
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class='btn') }}
+                </div>
+                <div class="form-group">
+                    {{ form.closed(class='btn btn-danger') }}
+                </div>
+            </form>
+        </div>
+    </div>
+{%- endmacro %}

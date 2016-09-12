@@ -18,7 +18,7 @@
             <div class="col-xs-4">
                 <div class="newtaskwrapper">
                     <h2>Create a new task</h2>
-                    {{ wtf.quick_form(newtaskform, action=url_for('.index'), button_map={'submit': 'primary'}) }}
+                    {{ wtf.quick_form(newtaskform, action=url_for('main.new_task'), button_map={'submit': 'primary'}) }}
                 </div>
             </div>
         {% else %}

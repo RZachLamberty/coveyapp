@@ -1,3 +1,4 @@
+{% import "taskform.html" as taskform %}
 <h2>Covey Quadrants</h2>
 <div class="quadrants">
     <div class="row">
@@ -7,15 +8,9 @@
                     <h3 class="panel-title">Urgent and Important</h3>
                 </div>
                 <div class="panel-body quadpanel">
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 1</div>
-                    </div>
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 2</div>
-                    </div>
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 3</div>
-                    </div>
+                    {% for task in current_user.tasks if (not task.closed) and task.important and task.urgent %}
+                        {{ taskform.taskpanel(task, updatetaskform) }}
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -25,15 +20,9 @@
                     <h3 class="panel-title">Not Urgent and Important</h3>
                 </div>
                 <div class="panel-body quadpanel">
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 1</div>
-                    </div>
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 2</div>
-                    </div>
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 3</div>
-                    </div>
+                    {% for task in current_user.tasks if (not task.closed) and task.important and (not task.urgent) %}
+                        {{ taskform.taskpanel(task, updatetaskform) }}
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -45,15 +34,9 @@
                     <h3 class="panel-title">Urgent and Not Important</h3>
                 </div>
                 <div class="panel-body quadpanel">
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 1</div>
-                    </div>
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 2</div>
-                    </div>
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 3</div>
-                    </div>
+                    {% for task in current_user.tasks if (not task.closed) and (not task.important) and task.urgent %}
+                        {{ taskform.taskpanel(task, updatetaskform) }}
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -63,15 +46,9 @@
                     <h3 class="panel-title">Not Urgent and Not Important</h3>
                 </div>
                 <div class="panel-body quadpanel">
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 1</div>
-                    </div>
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 2</div>
-                    </div>
-                    <div class="panel panel-default task">
-                        <div class="panel-body">Task 3</div>
-                    </div>
+                    {% for task in current_user.tasks if (not task.closed) and not (task.important or task.urgent) %}
+                        {{ taskform.taskpanel(task, updatetaskform) }}
+                    {% endfor %}
                 </div>
             </div>
         </div>
